@@ -3,19 +3,31 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="src/styles.css" rel="stylesheet" type="text/css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.47/moment-timezone-with-data-1970-2030.min.js"></script>
     <title>Time zone dropdown</title>
   </head>
   <body>
-    <select id="countries">
-      <option value="">Select a country</option>
-      <option value="south africa">South Africa</option>
-      <option value="brazil">Brazil</option>
-      <option value="ghana">Ghana</option>
+    <select id="city">
+      <option value="">Select a city</option>
+      <option value="South Africa/Cape Town">Cape Town</option>
+      <option value="Brazil/Rio de Janeiro">Rio de Janeiro</option>
+      <option value="Cuba/Havana">Havana</option>
     </select>
 
-    <script src="src/index.js"></script>
+    <script>
+      function showDate(event) {
+        if (event.target.value.length > 0) {
+          let currentTime = moment()
+            .tz(event.target.value)
+            .format("dddd, MMMM D, YYYY h:mm A");
+
+          alert(`It is ${currentTime} in ${event.target.value}`);
+        }
+      }
+
+      let selectElement = document.querySelector("#countries");
+      selectElement.addEventListener("change", showDate);
+    </script>
   </body>
 </html>
