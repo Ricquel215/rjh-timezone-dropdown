@@ -10,23 +10,35 @@
   <body>
     <select id="city">
       <option value="">Select a city</option>
-      <option value="South Africa/Cape Town">Cape Town</option>
-      <option value="Brazil/Rio de Janeiro">Rio de Janeiro</option>
-      <option value="Cuba/Havana">Havana</option>
+      <option value="Africa/Johannesburg">Cape Town</option>
+      <option value="America/Sao_Paulo">Rio de Janeiro</option>
+      <option value="America/Havana">Havana</option>
     </select>
 
     <script>
       function showDate(event) {
-        if (event.target.value.length > 0) {
-          let currentTime = moment()
-            .tz(event.target.value)
-            .format("dddd, MMMM D, YYYY h:mm A");
+        let cityValue = event.target.value;
+        console.log("Selected city timezone:", cityValue); // Add debug
 
-          alert(`It is ${currentTime} in ${event.target.value}`);
+        if (cityValue.length > 0) {
+          try {
+            let cityName =
+              event.target.options[event.target.selectedIndex].text;
+            let currentTime = moment()
+              .tz(cityValue)
+              .format("dddd, MMMM D, YYYY h:mm A");
+            console.log("Formatted time:", currentTime); // Add debug
+
+            alert(`It is ${currentTime} in ${cityName}`);
+          } catch (error) {
+            console.error("Error formatting time:", error);
+            alert("There was an error getting the time for this city.");
+          }
         }
       }
 
-      let selectElement = document.querySelector("#countries");
+      let selectElement = document.querySelector("#city");
+      console.log("Select element found:", selectElement); // Add debug
       selectElement.addEventListener("change", showDate);
     </script>
   </body>
